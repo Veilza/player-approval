@@ -1,11 +1,9 @@
-# Show Token Art
-[![Supported Foundry Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dplastic%26url%3Dhttps%3A%2F%2Fgithub.com%2Fveilza%2Fshow-token-art%2Freleases%2Flatest%2Fdownload%2Fmodule.json)](https://github.com/veilza/show-token-art)
-[![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fshow-token-art&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=show-token-art)
-[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fshow-token-art%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/show-token-art/)
+# Player Approval
+[![Supported Foundry Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dplastic%26url%3Dhttps%3A%2F%2Fgithub.com%2Fveilza%2Fplayer-approval%2Freleases%2Flatest%2Fdownload%2Fmodule.json)](https://github.com/veilza/player-approval)
+[![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fplayer-approval&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=player-approval)
+[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fplayer-approval%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/player-approval/)
 
-This is a module for FoundryVTT that allows players and game masters to see token art upon hitting a custom keybinding.
-
-By default, this keybind is shift + I for the token art and shift + O for the avatar art, and will display art for any selected and targeted tokens when the corresponding keybind is pressed.
+Player Approval adds a straightforward way for characters to judge one another's actions during a given game session.
 
 # Creator Information
 My name is [Veilza](https://twitter.com/VeilzaKinsemi), and I make various things between modules for Foundry and websites/games.
