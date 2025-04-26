@@ -1,4 +1,4 @@
-/* global game, ui, Hooks, ChatMessage, Dialog */
+/* global window, game, ui, Hooks, ChatMessage, Dialog */
 
 class PlayerApprovalSystem {
   /**
@@ -54,6 +54,7 @@ class PlayerApprovalSystem {
   static currentApprovals = new Map()
 
   // Timer in milliseconds
+  // Set to 10 seconds for testing purposes, will be switched to 60 on full release
   static timeoutDuration = 10000
 
   // Various nullable variables
@@ -220,12 +221,19 @@ class PlayerApprovalSystem {
 /**
  * Run anything that needs to be done on game start below this line
  */
-// Initialize the module's keybindings
-Hooks.once('init', PlayerApprovalSystem.registerKeybindings.bind(PlayerApprovalSystem))
+Hooks.once('init', () => {
+  // Initialize the module's keybindings
+  PlayerApprovalSystem.registerKeybindings()
+})
 
-// Set up the module's sockets
 Hooks.once('ready', () => {
+  // Set up the module's sockets
   game.socket.on('module.player-approval', ({ user, rating, initiator }) => {
     PlayerApprovalSystem.receiveApproval(user, rating, initiator)
   })
+
+  // Register an API that macros/modules/etc can access for basic things
+  window.PlayerApproval = {
+    PlayerApprovalSystem
+  }
 })
