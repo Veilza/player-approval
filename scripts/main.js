@@ -234,6 +234,6 @@ Hooks.once('ready', () => {
 
   // Register an API that macros/modules/etc can access for basic things
   window.PlayerApproval = {
-    PlayerApprovalSystem
+    API: PlayerApprovalSystem
   }
 })
