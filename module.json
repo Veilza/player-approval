@@ -1,0 +1,47 @@
+{
+	"id": "player-approval",
+	"title": "Player Approval",
+	"description": "Ever wanted to show what your character thinks about other player's actions without interrupting their scene? Now, you can let everyone know with an easy keybinding!",
+  "authors": [
+    {
+      "name": "Veilza",
+      "discord": "veilza",
+      "flags": {
+        "twitter": "https://twitter.com/VeilzaKinsemi",
+        "github": "https://github.com/Veilza",
+        "ko-fi": "https://ko-fi.com/VeilzaKinsemi"
+      }
+    }
+  ],
+	"version": "1.0.0",
+	"compatibility": {
+		"minimum": 10,
+		"verified": 12.331
+	},
+	"socket": "true",
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "css/styling.css"
+  ],
+  "license": "./LICENSE",
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"manifest": "https://github.com/veilza/player-approval/releases/download/latest/module.json",
+	"url": "https://github.com/veilza/player-approval",
+	"download": "https://github.com/veilza/player-approval/releases/download/latest/player-approval.zip",
+	"readme": "https://github.com/veilza/player-approval/blob/main/readme.md",
+	"changelog": "https://github.com/veilza/player-approval/releases/tag/latest",
+  "flags": {
+    "hotReload": {
+      "extensions": ["css", "hbs", "json"],
+      "paths": ["css", "templates", "lang"]
+    }
+  }
+}

@@ -1,0 +1,231 @@
+/* global game, ui, Hooks, ChatMessage, Dialog */
+
+class PlayerApprovalSystem {
+  /**
+   * Set up keybindings
+   */
+  static registerKeybindings () {
+    // Register the keybinding for approving of an action
+    game.keybindings.register('player-approval', 'approve', {
+      name: 'PLAYER_APPROVAL.KEYBINDINGS.APPROVE.Name',
+      hint: 'PLAYER_APPROVAL.KEYBINDINGS.APPROVE.Hint',
+      editable: [
+        {
+          key: 'Digit1',
+          modifiers: ['Shift']
+        }
+      ],
+      onDown: keybind => this.applyApprovalRating('approve')
+    })
+
+    // Register the keybinding for disapproving of an action
+    game.keybindings.register('player-approval', 'disapprove', {
+      name: 'PLAYER_APPROVAL.KEYBINDINGS.DISAPPROVE.Name',
+      hint: 'PLAYER_APPROVAL.KEYBINDINGS.DISAPPROVE.Hint',
+      editable: [
+        {
+          key: 'Digit2',
+          modifiers: ['Shift']
+        }
+      ],
+      onDown: keybind => this.applyApprovalRating('disapprove')
+    })
+
+    // Register the keybinding for abstaining from an opinion (hiding the popup message)
+    game.keybindings.register('player-approval', 'abstain', {
+      name: 'PLAYER_APPROVAL.KEYBINDINGS.ABSTAIN.Name',
+      hint: 'PLAYER_APPROVAL.KEYBINDINGS.ABSTAIN.Hint',
+      editable: [
+        {
+          key: 'Digit3',
+          modifiers: ['Shift']
+        }
+      ],
+      onDown: keybind => this.applyApprovalRating('abstain')
+    })
+
+    console.log('Player Approval | Registered module keybindings.')
+  }
+
+  /**
+   * Class variables
+   */
+  // Map to track current player approvals
+  static currentApprovals = new Map()
+
+  // Timer in milliseconds
+  static timeoutDuration = 10000
+
+  // Various nullable variables
+  static approvalUI = null
+  static approvalTimer = null
+  static approvalInitiator = null
+
+  /**
+   * Class functions
+   */
+  // Function to apply the approval rating
+  static applyApprovalRating (rating) {
+    // Sanity check for the rating value and prevent malformed data
+    const approvalRatings = ['approve', 'disapprove', 'abstain']
+    if (!approvalRatings.includes(rating)) {
+      ui.notifications.warn(game.i18n.format('PLAYER_APPROVAL.WARNING.NotValidRating', {
+        rating
+      }))
+
+      return
+    }
+
+    const playerName = game.user.name
+
+    // Send to all other clients
+    game.socket.emit('module.player-approval', {
+      user: playerName,
+      rating,
+      initiator: game.user.id
+    })
+
+    // Also apply it locally
+    this.receiveApproval(playerName, rating, game.user.id)
+
+    // Initialize timer if this is the first submission
+    if (!this.approvalTimer) {
+      this.startApprovalTimer()
+    }
+
+    // Update the player's rating
+    this.currentApprovals.set(playerName, rating)
+
+    // Refresh the UI display
+    this.renderApprovalUI()
+  }
+
+  // Receive approval ratings from other clients
+  static receiveApproval (playerName, rating, initiator) {
+    // Initialize timer
+    if (!this.approvalTimer) {
+      this.startApprovalTimer()
+    }
+
+    // Update the player's rating
+    this.currentApprovals.set(playerName, rating)
+
+    // Store the approval initiator if none is set
+    if (!this.approvalInitiator) {
+      this.approvalInitiator = initiator
+    }
+
+    // Refresh the UI
+    this.renderApprovalUI()
+  }
+
+  // Start a 1-minute timer for approvals
+  static startApprovalTimer () {
+    this.approvalTimer = setTimeout(() => {
+      // Close the UI
+      this.closeApprovalUI()
+
+      // Only post the approval results as the initiator
+      // This prevents issues where the results won't post if the GM isn't logged in
+      // or it posting multiple times
+      if (game.user.id === this.approvalInitiator) {
+        this.postApprovalResults()
+      }
+
+      // Clear our variables
+      this.currentApprovals.clear()
+      this.approvalTimer = null
+      this.approvalInitiator = null
+    }, this.timeoutDuration)
+  }
+
+  // Render the approval UI popup
+  static renderApprovalUI () {
+    if (!this.approvalUI) {
+      this.approvalUI = new Dialog({
+        title: game.i18n.localize('PLAYER_APPROVAL.MODULE_NAME'),
+        content: '<div id="approval-list"></div>',
+        buttons: {},
+        render: html => this.updateApprovalList(),
+        close: () => {
+          this.approvalUI = null
+        }
+      }, {
+        width: 300,
+        top: 100,
+        left: 100,
+        resizable: false
+      })
+      this.approvalUI.render(true)
+    } else {
+      this.updateApprovalList()
+    }
+  }
+
+  // Update the content inside the approval popup
+  static updateApprovalList () {
+    if (!this.approvalUI) return
+
+    const listItems = Array.from(this.currentApprovals.entries()).map(([player, rating]) => {
+      switch (rating) {
+        // Approval rating
+        case 'approve':
+          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.APPROVES')}.</li>`
+
+        // Disapproval rating
+        case 'disapprove':
+          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.DISAPPROVES')}.</li>`
+
+        // Abstain
+        default:
+          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.ABSTAINS')}.</li>`
+      }
+    }).join('')
+
+    const approvalList = `<ul>${listItems}</ul>`
+    this.approvalUI.element.find('#approval-list').html(approvalList)
+  }
+
+  // Close the approval UI
+  static closeApprovalUI () {
+    if (this.approvalUI) {
+      this.approvalUI.close()
+      this.approvalUI = null
+    }
+  }
+
+  // Post the final approval results to chat
+  static postApprovalResults () {
+    if (this.currentApprovals.size === 0) return
+
+    // Format each list option properly
+    const results = Array.from(this.currentApprovals.entries()).reduce((html, [player, rating]) => {
+      // Filter out all 'abstain' votes
+      if (rating === 'abstain') return html
+
+      // Localize the approvals and disapprovals
+      const localized = rating === 'approve' ? game.i18n.localize('PLAYER_APPROVAL.APPROVED') : game.i18n.localize('PLAYER_APPROVAL.DISAPPROVED')
+
+      // Return with the new formatting
+      return html + `<p><strong>${player}</strong> ${localized}.</p>`
+    }, '')
+
+    ChatMessage.create({
+      content: `<h2>Approval Results</h2>${results}`,
+      whisper: []
+    })
+  }
+}
+
+/**
+ * Run anything that needs to be done on game start below this line
+ */
+// Initialize the module's keybindings
+Hooks.once('init', PlayerApprovalSystem.registerKeybindings.bind(PlayerApprovalSystem))
+
+// Set up the module's sockets
+Hooks.once('ready', () => {
+  game.socket.on('module.player-approval', ({ user, rating, initiator }) => {
+    PlayerApprovalSystem.receiveApproval(user, rating, initiator)
+  })
+})

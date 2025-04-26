@@ -1,0 +1,39 @@
+{
+	"PLAYER_APPROVAL": {
+		"MODULE_NAME": "Player Approval",
+
+		"APPROVE": "Approve",
+		"DISAPPROVE": "Disapprove",
+		"ABSTAIN": "Abstain",
+
+		"APPROVES": "approves",
+		"DISAPPROVES": "disapproves",
+		"ABSTAINS": "abstains",
+
+		"APPROVED": "approved",
+		"DISAPPROVED": "disapproved",
+
+		"KEYBINDINGS": {
+			"APPROVE": {
+				"Name": "Approve",
+				"Hint": "Submit your approval."
+			},
+			"DISAPPROVE": {
+				"Name": "Disapprove",
+				"Hint": "Submit your disapproval."
+			},
+			"ABSTAIN": {
+				"Name": "Abstain",
+				"Hint": "Abstain from expressing approval or disapproval."
+			}
+		},
+
+		"CONSOLE": {
+			"KeybindingsRegistered": "Player Approval | Registered module keybindings."
+		},
+
+		"WARNING": {
+			"NotValidRating": "Player Approval | {rating} is not a valid rating."
+		}
+	}
+}
