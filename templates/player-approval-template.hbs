@@ -1,0 +1,24 @@
+<div>
+  <div class="approval-list">
+    <ul>
+      {{#each items}}
+        <li>
+          <strong>{{player}}</strong>
+          {{#if (eq rating "approve")}}
+            {{localize "PLAYER_APPROVAL.Approves"}}
+          {{else if (eq rating "disapprove")}}
+            {{localize "PLAYER_APPROVAL.Disapproves"}}
+          {{else}}
+            {{localize "PLAYER_APPROVAL.Abstains"}}
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="approval-buttons">
+    <button type="button" data-action="apply-approval" data-rating="approve">{{localize "PLAYER_APPROVAL.Approve"}}</button>
+    <button type="button" data-action="apply-approval" data-rating="disapprove">{{localize "PLAYER_APPROVAL.Disapprove"}}</button>
+    <button type="button" data-action="apply-approval" data-rating="abstain">{{localize "PLAYER_APPROVAL.Abstain"}}</button>
+  </div>
+</div>

@@ -1,4 +1,7 @@
-/* global window, game, ui, Hooks, ChatMessage, Dialog */
+/* global window, game, ui, Hooks, ChatMessage */
+
+import { _loadHelpers } from './handlebars-helpers.js'
+import { PlayerApprovalApplication } from './player-approval-application.js'
 
 class PlayerApprovalSystem {
   /**
@@ -143,20 +146,12 @@ class PlayerApprovalSystem {
   // Render the approval UI popup
   static renderApprovalUI () {
     if (!this.approvalUI) {
-      this.approvalUI = new Dialog({
-        title: game.i18n.localize('PLAYER_APPROVAL.MODULE_NAME'),
-        content: '<div id="approval-list"></div>',
-        buttons: {},
-        render: html => this.updateApprovalList(),
-        close: () => {
-          this.approvalUI = null
-        }
-      }, {
-        width: 300,
-        top: 100,
-        left: 100,
-        resizable: false
+      const items = Array.from(this.currentApprovals.entries()).map(([player, rating]) => {
+        return { player, rating }
       })
+
+      this.approvalUI = new PlayerApprovalApplication()
+      this.approvalUI.items = items
       this.approvalUI.render(true)
     } else {
       this.updateApprovalList()
@@ -165,26 +160,14 @@ class PlayerApprovalSystem {
 
   // Update the content inside the approval popup
   static updateApprovalList () {
-    if (!this.approvalUI) return
+    if (this.approvalUI) {
+      const items = Array.from(this.currentApprovals.entries()).map(([player, rating]) => {
+        return { player, rating }
+      })
 
-    const listItems = Array.from(this.currentApprovals.entries()).map(([player, rating]) => {
-      switch (rating) {
-        // Approval rating
-        case 'approve':
-          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.Approves')}.</li>`
-
-        // Disapproval rating
-        case 'disapprove':
-          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.Dispproves')}.</li>`
-
-        // Abstain
-        default:
-          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.Abstains')}.</li>`
-      }
-    }).join('')
-
-    const approvalList = `<ul>${listItems}</ul>`
-    this.approvalUI.element.find('#approval-list').html(approvalList)
+      this.approvalUI.items = items
+      this.approvalUI.render(false)
+    }
   }
 
   // Close the approval UI
@@ -224,6 +207,9 @@ class PlayerApprovalSystem {
 Hooks.once('init', () => {
   // Initialize the module's keybindings
   PlayerApprovalSystem.registerKeybindings()
+
+  // Initialize Handlebar helpers
+  _loadHelpers()
 })
 
 Hooks.once('ready', () => {
