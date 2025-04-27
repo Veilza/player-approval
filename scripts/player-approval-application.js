@@ -66,7 +66,9 @@ export class PlayerApprovalApplication extends HandlebarsApplicationMixin(Applic
   // Prevent closing of this window
   // We mainly do this because escape key would close it by accident,
   // and this popup doesn't last long enough for it to be annoying
-  async close () {
-    return null
+  async close (options = {}) {
+    if (options?.closeKey) return null
+
+    return super.close(options)
   }
 }
