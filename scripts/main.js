@@ -79,17 +79,17 @@ class PlayerApprovalSystem {
       return
     }
 
-    const playerName = game.user.name
+    const characterName = game.user?.character?.name || game?.user?.name
 
     // Send to all other clients
     game.socket.emit('module.player-approval', {
-      user: playerName,
+      user: characterName,
       rating,
       initiator: game.user.id
     })
 
     // Also apply it locally
-    this.receiveApproval(playerName, rating, game.user.id)
+    this.receiveApproval(characterName, rating, game.user.id)
 
     // Initialize timer if this is the first submission
     if (!this.approvalTimer) {
@@ -97,7 +97,7 @@ class PlayerApprovalSystem {
     }
 
     // Update the player's rating
-    this.currentApprovals.set(playerName, rating)
+    this.currentApprovals.set(characterName, rating)
 
     // Refresh the UI display
     this.renderApprovalUI()
