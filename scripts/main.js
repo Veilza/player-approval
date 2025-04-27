@@ -58,7 +58,7 @@ class PlayerApprovalSystem {
 
   // Timer in milliseconds
   // Set to 10 seconds for testing purposes, will be switched to 60 on full release
-  static timeoutDuration = 10000
+  static timeoutDuration = 10000000
 
   // Various nullable variables
   static approvalUI = null

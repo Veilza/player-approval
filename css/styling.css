@@ -1,4 +1,114 @@
-.image-popout {
-  min-width: 300px !important;
-  min-height: 300px !important;
+.player-approval {
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Transparent header by default */
+.player-approval .window-header {
+  background: transparent;
+  border: none;
+  text-align: center;
+  max-height: 20px;
+}
+
+.player-approval .window-header .window-title {
+  color: transparent;
+}
+
+/* Header becomes visible on hover */
+.player-approval:hover .window-header {
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border-light-primary);
+  color: var(--color-text-light-highlight);
+  transition: background 0.3s, color 0.3s;
+}
+
+.player-approval:hover .window-header .window-title {
+  color: var(--color-text-light-highlight);
+  transition: color 0.3s;
+}
+
+/* Remove the close button */
+.player-approval .window-header button[data-action="close"] {
+  display: none;
+}
+
+/* Center the Player Approval text */
+.player-approval .window-header .window-title {
+  text-align: center;
+}
+
+/* Override padding on the window content */
+.player-approval .window-content {
+  padding: 0;
+}
+
+/* Approval list */
+.player-approval ul.approval-list {
+  margin-bottom: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.player-approval li.approval-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  background: rgba(50, 50, 50, 0.25);
+  border-radius: 8px;
+  transition: background 0.3s;
+  color: #ece2e2;
+}
+
+.player-approval li.approval-item .player-name {
+  white-space: pre;
+}
+
+.player-approval li strong {
+  font-weight: bold;
+  color: #eee5e5;
+}
+
+/* Buttons in a row */
+.player-approval .approval-buttons {
+  margin-top: 5px;
+  display: flex;
+  gap: 0.5em;
+}
+
+/* Individual button styles */
+.player-approval .approval-button {
+  padding: 0.3em 0.6em;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.player-approval .approval-approve {
+  background-color: #7ec850;
+  color: #0a0a0a;
+}
+
+.player-approval .approval-disapprove {
+  background-color: #e65c5c;
+  color: #0a0a0a;
+}
+
+.player-approval .approval-abstain {
+  background-color: #cccccc;
+  color: #0a0a0a;
+}
+
+/* Button hover effects */
+.player-approval .approval-button:hover {
+  filter: brightness(1.2);
 }

@@ -1,24 +1,31 @@
 <div>
-  <div class="approval-list">
-    <ul>
-      {{#each items}}
-        <li>
-          <strong>{{player}}</strong>
-          {{#if (eq rating "approve")}}
-            {{localize "PLAYER_APPROVAL.Approves"}}
-          {{else if (eq rating "disapprove")}}
-            {{localize "PLAYER_APPROVAL.Disapproves"}}
-          {{else}}
-            {{localize "PLAYER_APPROVAL.Abstains"}}
-          {{/if}}
-        </li>
-      {{/each}}
-    </ul>
-  </div>
+  <ul class="approval-list">
+    {{#each items}}
+      <li class="approval-item">
+        <span class="player-name"><strong>{{player}}</strong> </span>
+        {{#if (eq rating "approve")}}
+          {{localize "PLAYER_APPROVAL.Approves"}}
+        {{else if (eq rating "disapprove")}}
+          {{localize "PLAYER_APPROVAL.Disapproves"}}
+        {{else}}
+          {{localize "PLAYER_APPROVAL.Abstains"}}
+        {{/if}}
+      </li>
+    {{/each}}
+  </ul>
 
   <div class="approval-buttons">
-    <button type="button" data-action="apply-approval" data-rating="approve">{{localize "PLAYER_APPROVAL.Approve"}}</button>
-    <button type="button" data-action="apply-approval" data-rating="disapprove">{{localize "PLAYER_APPROVAL.Disapprove"}}</button>
-    <button type="button" data-action="apply-approval" data-rating="abstain">{{localize "PLAYER_APPROVAL.Abstain"}}</button>
+    <button type="button" data-action="applyApprovalRating" data-rating="approve" class="approval-button approval-approve"
+      title="{{localize 'PLAYER_APPROVAL.Approve'}}">
+      <i class="fas fa-thumbs-up"></i>
+    </button>
+    <button type="button" data-action="applyApprovalRating" data-rating="abstain" class="approval-button approval-abstain"
+      title="{{localize 'PLAYER_APPROVAL.Abstain'}}">
+      <i class="fas fa-minus"></i>
+    </button>
+    <button type="button" data-action="applyApprovalRating" data-rating="disapprove" class="approval-button approval-disapprove"
+      title="{{localize 'PLAYER_APPROVAL.Disapprove'}}">
+      <i class="fas fa-thumbs-down"></i>
+    </button>
   </div>
 </div>
