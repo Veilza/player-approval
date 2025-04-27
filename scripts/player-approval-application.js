@@ -49,8 +49,6 @@ export class PlayerApprovalApplication extends HandlebarsApplicationMixin(Applic
   static _onApplyApprovalRating (event, target) {
     event.preventDefault()
 
-    console.log('EEEEEEEEEEEEEEEE')
-
     const rating = target.getAttribute('data-rating')
 
     PlayerApproval.API.applyApprovalRating(rating)
