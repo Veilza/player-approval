@@ -79,17 +79,22 @@ class PlayerApprovalSystem {
       return
     }
 
-    const characterName = game.user?.character?.name || game?.user?.name
+    const character = game.user?.character
+    const details = {
+      id: game.user.id,
+      name: character?.name ?? game.user?.name,
+      img: character?.img ?? game.user?.avatar
+    }
 
     // Send to all other clients
     game.socket.emit('module.player-approval', {
-      user: characterName,
+      details,
       rating,
       initiator: game.user.id
     })
 
     // Also apply it locally
-    this.receiveApproval(characterName, rating, game.user.id)
+    this.receiveApproval(details, rating, game.user.id)
 
     // Initialize timer if this is the first submission
     if (!this.approvalTimer) {
@@ -97,21 +102,21 @@ class PlayerApprovalSystem {
     }
 
     // Update the player's rating
-    this.currentApprovals.set(characterName, rating)
+    this.currentApprovals.set(details.id, { details, rating })
 
     // Refresh the UI display
     this.renderApprovalUI()
   }
 
   // Receive approval ratings from other clients
-  static receiveApproval (playerName, rating, initiator) {
+  static receiveApproval (details, rating, initiator) {
     // Initialize timer
     if (!this.approvalTimer) {
       this.startApprovalTimer()
     }
 
     // Update the player's rating
-    this.currentApprovals.set(playerName, rating)
+    this.currentApprovals.set(details.id, { details, rating })
 
     // Store the approval initiator if none is set
     if (!this.approvalInitiator) {
@@ -145,8 +150,8 @@ class PlayerApprovalSystem {
   // Render the approval UI popup
   static renderApprovalUI () {
     if (!this.approvalUI) {
-      const items = Array.from(this.currentApprovals.entries()).map(([player, rating]) => {
-        return { player, rating }
+      const items = Array.from(this.currentApprovals.entries()).map(([id, { details, rating }]) => {
+        return { details, rating }
       })
 
       this.approvalUI = new PlayerApprovalApplication()
@@ -160,8 +165,8 @@ class PlayerApprovalSystem {
   // Update the content inside the approval popup
   static updateApprovalList () {
     if (this.approvalUI) {
-      const items = Array.from(this.currentApprovals.entries()).map(([player, rating]) => {
-        return { player, rating }
+      const items = Array.from(this.currentApprovals.entries()).map(([id, { details, rating }]) => {
+        return { details, rating }
       })
 
       this.approvalUI.items = items
@@ -182,7 +187,7 @@ class PlayerApprovalSystem {
     if (this.currentApprovals.size === 0) return
 
     // Format each list option properly
-    const results = Array.from(this.currentApprovals.entries()).reduce((html, [player, rating]) => {
+    const results = Array.from(this.currentApprovals.entries()).reduce((html, [id, { details, rating }]) => {
       // Filter out all 'abstain' votes
       if (rating === 'abstain') return html
 
@@ -190,7 +195,7 @@ class PlayerApprovalSystem {
       const localized = rating === 'approve' ? game.i18n.localize('PLAYER_APPROVAL.Approved') : game.i18n.localize('PLAYER_APPROVAL.Disapproved')
 
       // Return with the new formatting
-      return html + `<p><strong>${player}</strong> ${localized}.</p>`
+      return html + `<p><strong>${details.name}</strong> ${localized}.</p>`
     }, '')
 
     ChatMessage.create({
@@ -213,8 +218,8 @@ Hooks.once('init', () => {
 
 Hooks.once('ready', () => {
   // Set up the module's sockets
-  game.socket.on('module.player-approval', ({ user, rating, initiator }) => {
-    PlayerApprovalSystem.receiveApproval(user, rating, initiator)
+  game.socket.on('module.player-approval', ({ details, rating, initiator }) => {
+    PlayerApprovalSystem.receiveApproval(details, rating, initiator)
   })
 
   // Register an API that macros/modules/etc can access for basic things

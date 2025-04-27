@@ -67,8 +67,15 @@
   color: #ece2e2;
 }
 
-.player-approval li.approval-item .player-name {
+.player-approval li.approval-item .character-name {
   white-space: pre;
+}
+
+.player-approval li.approval-item .character-icon {
+  border-radius: 50%;
+  margin-right: 10px;
+  max-width: 25px;
+  max-height: 25px;
 }
 
 .player-approval li strong {

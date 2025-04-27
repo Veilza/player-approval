@@ -2,7 +2,8 @@
   <ul class="approval-list">
     {{#each items}}
       <li class="approval-item">
-        <span class="player-name"><strong>{{player}}</strong> </span>
+        <img class="character-icon" src="{{this.details.img}}" alt="{{this.details.name}}">
+        <span class="character-name"><strong>{{this.details.name}}</strong> </span>
         {{#if (eq rating "approve")}}
           {{localize "PLAYER_APPROVAL.Approves"}}
         {{else if (eq rating "disapprove")}}
