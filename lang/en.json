@@ -2,16 +2,17 @@
 	"PLAYER_APPROVAL": {
 		"MODULE_NAME": "Player Approval",
 
-		"APPROVE": "Approve",
-		"DISAPPROVE": "Disapprove",
-		"ABSTAIN": "Abstain",
+		"Approve": "Approve",
+		"Disapprove": "Disapprove",
+		"Abstain": "Abstain",
 
-		"APPROVES": "approves",
-		"DISAPPROVES": "disapproves",
-		"ABSTAINS": "abstains",
+		"Approves": "approves",
+		"Disapproves": "disapproves",
+		"Abstains": "abstains",
 
-		"APPROVED": "approved",
-		"DISAPPROVED": "disapproved",
+		"ApprovalResults": "Approval Results",
+		"Approved": "approved",
+		"Disapproved": "disapproved",
 
 		"KEYBINDINGS": {
 			"APPROVE": {

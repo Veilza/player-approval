@@ -171,15 +171,15 @@ class PlayerApprovalSystem {
       switch (rating) {
         // Approval rating
         case 'approve':
-          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.APPROVES')}.</li>`
+          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.Approves')}.</li>`
 
         // Disapproval rating
         case 'disapprove':
-          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.DISAPPROVES')}.</li>`
+          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.Dispproves')}.</li>`
 
         // Abstain
         default:
-          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.ABSTAINS')}.</li>`
+          return `<li><strong>${player}</strong> ${game.i18n.localize('PLAYER_APPROVAL.Abstains')}.</li>`
       }
     }).join('')
 
@@ -205,14 +205,14 @@ class PlayerApprovalSystem {
       if (rating === 'abstain') return html
 
       // Localize the approvals and disapprovals
-      const localized = rating === 'approve' ? game.i18n.localize('PLAYER_APPROVAL.APPROVED') : game.i18n.localize('PLAYER_APPROVAL.DISAPPROVED')
+      const localized = rating === 'approve' ? game.i18n.localize('PLAYER_APPROVAL.Approved') : game.i18n.localize('PLAYER_APPROVAL.Disapproved')
 
       // Return with the new formatting
       return html + `<p><strong>${player}</strong> ${localized}.</p>`
     }, '')
 
     ChatMessage.create({
-      content: `<h2>Approval Results</h2>${results}`,
+      content: `<h2>${game.i18n.localize('PLAYER_APPROVAL.ApprovalResults')}</h2>${results}`,
       whisper: []
     })
   }
