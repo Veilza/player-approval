@@ -33,9 +33,9 @@
 			"path": "lang/en.json"
 		}
 	],
-	"manifest": "https://github.com/veilza/player-approval/releases/download/latest/module.json",
+	"manifest": "https://github.com/veilza/player-approval/releases/latest/download/module.json",
 	"url": "https://github.com/veilza/player-approval",
-	"download": "https://github.com/veilza/player-approval/releases/download/latest/player-approval.zip",
+	"download": "https://github.com/veilza/player-approval/releases/latest/download/player-approval.zip",
 	"readme": "https://github.com/veilza/player-approval/blob/main/readme.md",
 	"changelog": "https://github.com/veilza/player-approval/releases/tag/latest",
   "flags": {
