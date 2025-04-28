@@ -1,6 +1,6 @@
 {
 	"PLAYER_APPROVAL": {
-		"MODULE_NAME": "Player Approval",
+		"MODULE_NAME": "Character Approval",
 
 		"Approve": "Approve",
 		"Disapprove": "Disapprove",
@@ -30,11 +30,11 @@
 		},
 
 		"CONSOLE": {
-			"KeybindingsRegistered": "Player Approval | Registered module keybindings."
+			"KeybindingsRegistered": "Character Approval | Registered module keybindings."
 		},
 
 		"WARNING": {
-			"NotValidRating": "Player Approval | {rating} is not a valid rating."
+			"NotValidRating": "Character Approval | {rating} is not a valid rating."
 		}
 	}
 }
