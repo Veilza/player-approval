@@ -5,6 +5,7 @@
   box-shadow: none;
   border-radius: 12px;
   overflow: hidden;
+  min-width: 200px;
 }
 
 /* Transparent header by default */
@@ -26,6 +27,12 @@
   border-bottom: 1px solid var(--color-border-light-primary);
   color: var(--color-text-light-highlight);
   transition: background 0.3s, color 0.3s;
+}
+
+/* Buttons become visible on hover */
+.player-approval:hover .approval-buttons {
+  display: flex;
+  transition: display 0.3s;
 }
 
 .player-approval:hover .window-header .window-title {
@@ -65,6 +72,7 @@
   border-radius: 8px;
   transition: background 0.3s;
   color: #ece2e2;
+  width: fit-content;
 }
 
 .player-approval li.approval-item .character-name {
@@ -86,8 +94,11 @@
 /* Buttons in a row */
 .player-approval .approval-buttons {
   margin-top: 5px;
-  display: flex;
+  display: none;
   gap: 0.5em;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Individual button styles */

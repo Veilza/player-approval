@@ -12,7 +12,7 @@ export class PlayerApprovalApplication extends HandlebarsApplicationMixin(Applic
       closeOnSubmit: false
     },
     position: {
-      width: 200,
+      width: 'auto',
       height: 'auto',
       top: 55,
       left: 115
