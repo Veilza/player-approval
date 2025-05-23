@@ -57,7 +57,7 @@ class PlayerApprovalSystem {
   static currentApprovals = new Map()
 
   // Timer in milliseconds
-  static timeoutDuration = 600 * 1000
+  static timeoutDuration = 60 * 1000
 
   // Various nullable variables
   static approvalUI = null
