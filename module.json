@@ -13,10 +13,10 @@
       }
     }
   ],
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"compatibility": {
 		"minimum": 12,
-		"verified": 12.331
+		"verified": 12.343
 	},
 	"socket": "true",
   "esmodules": [
@@ -35,9 +35,9 @@
 	],
 	"manifest": "https://github.com/veilza/player-approval/releases/latest/download/module.json",
 	"url": "https://github.com/veilza/player-approval",
-	"download": "https://github.com/veilza/player-approval/releases/latest/download/player-approval.zip",
+	"download": "https://github.com/veilza/player-approval/releases/download/1.0.3/player-approval.zip",
 	"readme": "https://github.com/veilza/player-approval/blob/main/readme.md",
-	"changelog": "https://github.com/veilza/player-approval/releases/tag/latest",
+	"changelog": "https://github.com/veilza/player-approval/releases/tag/1.0.3",
   "flags": {
     "hotReload": {
       "extensions": ["css", "hbs", "json"],
