@@ -12,7 +12,7 @@ jobs:
     publish-release:
         name: Publish release to Foundry
         runs-on: ubuntu-latest
-    
+
         steps:
           - name: POST release
             id: myRequest
@@ -22,7 +22,7 @@ jobs:
                 method: 'POST'
                 customHeaders: '{"Authorization": "${{ secrets.FOUNDRY_API_TOKEN }}"}'
                 preventFailureOnNoResponse: true
-                data: 
+                data:
                     '{
                         "id": "player-approval",
                         "release": {
@@ -31,7 +31,7 @@ jobs:
                             "notes": "https://github.com/veilza/player-approval/releases/tag/${{ github.event.release.tag_name }}",
                             "compatibility": {
                                 "minimum": "12",
-                                "verified": "12.343",
+                                "verified": "13.346",
                                 "maximum": ""
                             }
                         }
