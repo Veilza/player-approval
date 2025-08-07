@@ -5,6 +5,14 @@
 
 Character Approval adds a straightforward way for your characters to judge one another's actions during a game session.
 
+## How It Works
+Submissions appear live in a small UI for all players to see, which automatically closes after 1 minute. Other players can throw their opinions in as well during this time, with an additional option to "Abstain," and the results are posted to the chat afterwards.
+
+## Default Keybindings
+- Shift + 1: Approve
+- Shift + 2: Disapprove
+- Shift + 3: Abstain
+
 # Creator Information
 My name is [Veilza](https://twitter.com/VeilzaKinsemi), and I make various things between modules for Foundry and websites/games.
 If you'd like to donate to me, you can through [Paypal](https://www.paypal.com/donate/?hosted_button_id=T5ZD4T9PSZZVA) or [Ko-Fi](https://ko-fi.com/veilzakinsemi).
