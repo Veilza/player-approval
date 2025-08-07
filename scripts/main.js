@@ -1,5 +1,6 @@
 /* global window, game, ui, Hooks, ChatMessage */
 
+import { getApprovalEntity } from './get-approval-entity.js'
 import { _loadHelpers } from './handlebars-helpers.js'
 import { PlayerApprovalApplication } from './player-approval-application.js'
 
@@ -79,11 +80,12 @@ class PlayerApprovalSystem {
       return
     }
 
-    const character = game.user?.character
+    const approvalEntity = getApprovalEntity()
     const details = {
       id: game.user.id,
-      name: character?.name ?? game.user?.name,
-      img: character?.img ?? game.user?.avatar
+      name: approvalEntity?.name,
+      img: approvalEntity?.img,
+      isMultiple: approvalEntity?.isMultiple
     }
 
     // Send to all other clients

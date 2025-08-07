@@ -6,13 +6,19 @@
 		"Disapprove": "Disapprove",
 		"Abstain": "Abstain",
 
-		"Approves": "approves",
-		"Disapproves": "disapproves",
-		"Abstains": "abstains",
+		"PluralApprove": "approve",
+		"PluralDisapprove": "disapprove",
+		"PluralAbstain": "abstain",
+
+		"SingularApprove": "approves",
+		"SingularDisapprove": "disapproves",
+		"SingularAbstain": "abstains",
 
 		"ApprovalResults": "Approval Results",
 		"Approved": "approved",
 		"Disapproved": "disapproved",
+
+		"ManyCharacters": "Many Characters",
 
 		"KEYBINDINGS": {
 			"APPROVE": {

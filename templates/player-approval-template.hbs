@@ -4,12 +4,24 @@
       <li class="approval-item">
         <img class="character-icon" src="{{this.details.img}}" alt="{{this.details.name}}">
         <span class="character-name"><strong>{{this.details.name}}</strong> </span>
-        {{#if (eq rating "approve")}}
-          {{localize "PLAYER_APPROVAL.Approves"}}
-        {{else if (eq rating "disapprove")}}
-          {{localize "PLAYER_APPROVAL.Disapproves"}}
+        {{#if this.details.isMultiple}}
+          <!-- Plural -->
+          {{#if (eq rating "approve")}}
+            {{localize "PLAYER_APPROVAL.PluralApprove"}}
+          {{else if (eq rating "disapprove")}}
+            {{localize "PLAYER_APPROVAL.PluralDisapprove"}}
+          {{else}}
+            {{localize "PLAYER_APPROVAL.PluralAbstain"}}
+          {{/if}}
         {{else}}
-          {{localize "PLAYER_APPROVAL.Abstains"}}
+          <!-- Singular -->
+          {{#if (eq rating "approve")}}
+            {{localize "PLAYER_APPROVAL.SingularApprove"}}
+          {{else if (eq rating "disapprove")}}
+            {{localize "PLAYER_APPROVAL.SingularDisapprove"}}
+          {{else}}
+            {{localize "PLAYER_APPROVAL.SingularAbstain"}}
+          {{/if}}
         {{/if}}
       </li>
     {{/each}}
